@@ -1,19 +1,31 @@
 import React from "react";
 import { ContactsCollection } from "../lib/collections/ContactsCollection";
 import { useTracker } from "meteor/react-meteor-data";
+import { ErrorAlert } from "../../shared/client/components/ErrorAlert";
 
 export const ContactList = () => {
   const contacts = useTracker(() => {
     return ContactsCollection.find({}, { sort: { createdAt: -1 } }).fetch();
   });
 
+  const [remove, setRemove] = React.useState("");
+
+  const showRemove = ({ message }) => {
+    setRemove(message);
+    setTimeout(() => {
+      setRemove("");
+    }, 4000);
+  };
+
   const removeContact = (event, _id) => {
     event.preventDefault();
     Meteor.call("contacts.remove", { contactId: _id });
+    showRemove({ message: "Contact deleted" });
   };
 
   return (
     <div>
+      {remove && <ErrorAlert message={remove} />}
       <div className="mt-10">
         <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
           Contact List
