@@ -6,11 +6,12 @@ Package.describe({
 
 Package.onUse(function (api) {
   api.versionsFrom("2.7");
-  api.use(["ecmascript", "mongo", "react-meteor-data"]);
+  api.use(["ecmascript", "mongo", "react-meteor-data", "shared"]);
 
   api.mainModule("client/ContactForm.jsx", "client"); //entry point of the package
 
   api.addFiles(["server/ContactsMethods.js"], "server");
+  api.addFiles(["client/ContactList.jsx"], "client");
 
   api.addFiles(["lib/collections/ContactsCollection.js"], ["client", "server"]);
 

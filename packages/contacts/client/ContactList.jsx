@@ -4,27 +4,13 @@ import { useTracker } from "meteor/react-meteor-data";
 
 export const ContactList = () => {
   const contacts = useTracker(() => {
-    const handle = Meteor.subscribe("contacts.all");
-    if (!handle.ready()) {
-      return [];
-    }
+    return ContactsCollection.find({}, { sort: { createdAt: -1 } }).fetch();
+  });
 
-    return ContactsCollection.find({}).fetch(); //Tracker
-  }, []);
-
-  // const contacts = useTracker(() => {
-  //   const handle = Meteor.subscribe("contacts.all");
-  //   console.log("Subscription handle ready:", handle.ready()); // Debug log
-
-  //   if (!handle.ready()) {
-  //     return []; // Wait for subscription to be ready
-  //   }
-
-  //   const result = ContactsCollection.find({}).fetch();
-  //   console.log("Fetched contacts:", result); // Debug log
-  //   return result;
-  // }, []);
-
+  const removeContact = (event, _id) => {
+    event.preventDefault();
+    Meteor.call("contacts.remove", { contactId: _id });
+  };
 
   return (
     <div>
@@ -56,6 +42,15 @@ export const ContactList = () => {
                   <p className="text-sm font-medium text-gray-500 truncate">
                     {person.email}
                   </p>
+                </div>
+                <div>
+                  <a
+                    href="#"
+                    onClick={(event) => removeContact(event, person._id)}
+                    className="inline-flex items-center rounded-full border border-gray-300 bg-white px-2.5 py-0.5 text-sm font-medium leading-5 text-gray-700 shadow-sm hover:bg-gray-50"
+                  >
+                    Remove
+                  </a>
                 </div>
               </div>
             </li>

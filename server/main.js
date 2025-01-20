@@ -3,8 +3,5 @@ import { ContactsCollection } from "meteor/contacts/lib/collections/ContactsColl
 import "meteor/contacts/server/ContactsMethods";
 
 Meteor.startup(() => {
-  Meteor.publish("contacts.all", function () {
-    console.log("Publishing contacts..."); // Debug log
-    return ContactsCollection.find();
-  });
+
 });

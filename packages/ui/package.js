@@ -6,12 +6,11 @@ Package.describe({
 
 Package.onUse(function (api) {
   api.versionsFrom("2.7");
-  api.use(["ecmascript", "contacts"]); //depend on `contacts` package
+  api.use(["ecmascript", "shared", "react-meteor-data"]); //depend on `contacts` package
   api.mainModule("client/views/App.jsx", "client"); //Entry point of the package
 
   api.addFiles(["client/views/Header.jsx"], "client");
 
   // Export App for use in other parts of the app
   api.export("App", "client");
-
 });
