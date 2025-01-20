@@ -1,9 +1,10 @@
-import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { render } from 'react-dom';
-import { App } from 'meteor/ui/client/views/App.jsx';
+import React from "react";
+import { Meteor } from "meteor/meteor";
+import { render } from "react-dom";
+import { App } from "meteor/ui/client/views/App.jsx";
 import "meteor/contacts/server/ContactsMethods";
+// import "meteor/contacts/server/ContactsPublications";
 
 Meteor.startup(() => {
-  render(<App/>, document.getElementById('react-target'));
+  render(<App />, document.getElementById("react-target"));
 });

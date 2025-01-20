@@ -1,11 +1,14 @@
 import React from "react";
 import { ContactsCollection } from "../lib/collections/ContactsCollection";
-import { useTracker } from "meteor/react-meteor-data";
+import { useSubscribe, useFind } from "meteor/react-meteor-data";
 import { ErrorAlert } from "../../shared/client/components/ErrorAlert";
+import { Meteor } from "meteor/meteor";
 
 export const ContactList = () => {
-  const contacts = useTracker(() => {
-    return ContactsCollection.find({}, { sort: { createdAt: -1 } }).fetch();
+  const isLoading = useSubscribe("allContacts");
+
+  const contacts = useFind(() => {
+    return ContactsCollection.find({}, { sort: { createdAt: -1 } });
   });
 
   const [remove, setRemove] = React.useState("");
@@ -22,6 +25,10 @@ export const ContactList = () => {
     Meteor.call("contacts.remove", { contactId: _id });
     showRemove({ message: "Contact deleted" });
   };
+
+  if (isLoading()) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div>

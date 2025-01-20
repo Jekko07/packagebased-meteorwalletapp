@@ -10,10 +10,7 @@ Package.onUse(function (api) {
 
   api.mainModule("client/ContactForm.jsx", "client"); //entry point of the package
 
-  api.addFiles(
-    ["server/ContactsMethods.js", "server/ContactsPublications.js"],
-    "server"
-  );
+  api.addFiles(["server/ContactsMethods.js", "server/ContactsPublications.js"], "server");
   api.addFiles(["client/ContactList.jsx"], "client");
 
   api.addFiles(["lib/collections/ContactsCollection.js"], ["client", "server"]);
@@ -23,4 +20,5 @@ Package.onUse(function (api) {
   api.export("ContactForm", "client");
   api.export("ContactList", "client");
   api.export("ContactMethods", "server");
+  api.export("ContactsPublications", "server");
 });
