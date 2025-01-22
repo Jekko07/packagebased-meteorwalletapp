@@ -7,6 +7,7 @@ export const ContactForm = () => {
   const [name, setName] = React.useState(""); // Formik
   const [email, setEmail] = React.useState("");
   const [imageUrl, setImageUrl] = React.useState("");
+  const [walletId, setWalletId] = React.useState("");
   const [error, setError] = React.useState("");
   const [success, setSuccess] = React.useState("");
 
@@ -27,7 +28,7 @@ export const ContactForm = () => {
   const saveContact = () => {
     Meteor.call(
       "contacts.insert",
-      { name, email, imageUrl },
+      { name, email, imageUrl, walletId },
       (errorResponse) => {
         if (errorResponse) {
           showError({ message: errorResponse.error });
@@ -35,6 +36,7 @@ export const ContactForm = () => {
           setName("");
           setEmail("");
           setImageUrl("");
+          setWalletId("");
           showSuccess({ message: "Contact saved." });
         }
       }
@@ -92,6 +94,23 @@ export const ContactForm = () => {
             id="imageUrl"
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            autoComplete="off"
+          />
+        </div>
+
+        <div className="col-span-6" >
+          <label
+            htmlFor="walletId"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Wallet ID
+          </label>
+          <input
+            type="text"
+            id="walletId"
+            value={walletId}
+            onChange={(e) => setWalletId(e.target.value)}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             autoComplete="off"
           />

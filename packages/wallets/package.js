@@ -8,9 +8,11 @@ Package.describe({
 Package.onUse(function (api) {
   api.versionsFrom("2.7");
   api.use("ecmascript");
-  // api.mainModule('wallets.js');
+  api.mainModule("client/Wallet.jsx", "client");
 
   api.addFiles(["lib/collections/WalletsCollection.js"], ["client", "server"]);
+  api.addFiles(["client/Modal.jsx"], ["client"]);
 
   api.export("WalletsCollection", ["client", "server"]);
+  api.export(["Wallet", "Modal", "client"]);
 });
