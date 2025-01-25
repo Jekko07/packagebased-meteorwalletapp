@@ -1,6 +1,6 @@
 import { ContactsCollection } from "../lib/collections/ContactsCollection";
 import { Meteor } from "meteor/meteor";
 
-Meteor.publish('allContacts', function publishAllContacts() {
+Meteor.publish('contacts', function publishAllContacts() {
   return ContactsCollection.find(); // Live Query
 });

@@ -11,8 +11,8 @@ Package.onUse(function (api) {
   api.mainModule("client/Wallet.jsx", "client");
 
   api.addFiles(["lib/collections/WalletsCollection.js"], ["client", "server"]);
-  api.addFiles(["client/Modal.jsx"], ["client"]);
+  api.addFiles(["client/Modal.jsx", "client/SelectContact.jsx"], ["client"]);
 
   api.export("WalletsCollection", ["client", "server"]);
-  api.export(["Wallet", "Modal", "client"]);
+  api.export(["Wallet", "Modal", "SelectContact","client"]);
 });

@@ -10,10 +10,10 @@ Package.onUse(function (api) {
 
   // Add shared files
   api.addFiles(
-    ["client/components/ErrorAlert.jsx", "client/components/SuccessAlert.jsx"],
+    ["client/components/ErrorAlert.jsx", "client/components/SuccessAlert.jsx", "client/components/Loading.jsx"],
     "client"
   );
 
   // Export shared components
-  api.export(["ErrorAlert", "SuccessAlert"], "client");
+  api.export(["ErrorAlert", "SuccessAlert", "Loading"], "client");
 });

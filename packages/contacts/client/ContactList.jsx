@@ -3,9 +3,10 @@ import { ContactsCollection } from "../lib/collections/ContactsCollection";
 import { useSubscribe, useFind } from "meteor/react-meteor-data";
 import { ErrorAlert } from "../../shared/client/components/ErrorAlert";
 import { Meteor } from "meteor/meteor";
+import { Loading } from "meteor/shared/client/components/Loading";
 
 export const ContactList = () => {
-  const isLoading = useSubscribe("allContacts");
+  const isLoading = useSubscribe("contacts");
 
   const contacts = useFind(() => {
     return ContactsCollection.find({}, { sort: { createdAt: -1 } });
@@ -26,30 +27,19 @@ export const ContactList = () => {
     showRemove({ message: "Contact deleted" });
   };
 
-  if (isLoading()) {
-    return (
-      <div>
-        <div className="mt-10">
-          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-            Loading...
-          </h3>
-        </div>
-      </div>
-    );
-  }
 
   const ContactItem = memo(({ contact }) => {
     return (
-      <li className="py-4 flex items-center justify-between space-x-3">
-        <div className="min-w-0 flex-1 flex items-center space-x-3">
+      <li className="flex items-center justify-between py-4 space-x-3">
+        <div className="flex items-center flex-1 min-w-0 space-x-3">
           <div className="flex-shrink-0">
             <img
-              className="h-10 w-10 rounded-full"
+              className="w-10 h-10 rounded-full"
               src={contact.imageUrl}
               alt=""
             />
           </div>
-          <div className="min-w-0 flex-1">
+          <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-gray-900 truncate">
               {contact.name}
             </p>
@@ -74,11 +64,15 @@ export const ContactList = () => {
     );
   });
 
+  if (isLoading()) {
+    return <Loading />
+  }
+  
   return (
     <div>
       {remove && <ErrorAlert message={remove} />}
       <div className="mt-10">
-        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+        <h3 className="text-xs font-semibold tracking-wide text-gray-500 uppercase">
           Contact List
         </h3>
         <ul
