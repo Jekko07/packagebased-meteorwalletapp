@@ -7,12 +7,14 @@ Package.describe({
 
 Package.onUse(function (api) {
   api.versionsFrom("2.7");
-  api.use("ecmascript");
+  api.use(["ecmascript", "mongo", "react-meteor-data", "shared"]);
   api.mainModule("client/Wallet.jsx", "client");
 
   api.addFiles(["lib/collections/WalletsCollection.js"], ["client", "server"]);
   api.addFiles(["client/Modal.jsx", "client/SelectContact.jsx"], ["client"]);
+  api.addFiles(["server/WalletsPublications.js"], ["server"]);
 
   api.export("WalletsCollection", ["client", "server"]);
-  api.export(["Wallet", "Modal", "SelectContact","client"]);
+  api.export(["Wallet", "Modal", "SelectContact", "client"]);
+  api.export(["WalletsPublications", "server"]);
 });

@@ -8,13 +8,15 @@ Package.describe({
 
 Package.onUse(function (api) {
   api.versionsFrom("2.7");
-  api.use("ecmascript");
+  api.use(["ecmascript", "mongo", "react-meteor-data", "shared"]);
   // api.mainModule('transactions.js');
 
   api.addFiles(
     ["lib/collections/TransactionsCollections.js"],
     ["client", "server"]
   );
+  api.addFiles(["server/TransactionsMethods.js"], ["server"]);
 
   api.export("TransactionsCollections", ["client", "server"]);
+  api.export("TransactionsMethods", ["server"]);
 });

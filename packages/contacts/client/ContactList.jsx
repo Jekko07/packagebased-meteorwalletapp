@@ -27,18 +27,19 @@ export const ContactList = () => {
     showRemove({ message: "Contact deleted" });
   };
 
-
-  const ContactItem = memo(({ contact }) => {
+  const ContactItem = memo(({ contact, updateContact }) => {
     return (
       <li className="flex items-center justify-between py-4 space-x-3">
         <div className="flex items-center flex-1 min-w-0 space-x-3">
-          <div className="flex-shrink-0">
-            <img
-              className="w-10 h-10 rounded-full"
-              src={contact.imageUrl}
-              alt=""
-            />
-          </div>
+          {contact.imageUrl && (
+            <div className="flex-shrink-0">
+              <img
+                className="w-10 h-10 rounded-full"
+                src={contact.imageUrl}
+                alt=""
+              />
+            </div>
+          )}
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-gray-900 truncate">
               {contact.name}
@@ -51,13 +52,18 @@ export const ContactList = () => {
             </p>
           </div>
           <div>
-            <a
-              href="#"
+            <button
+              onClick={(event) => updateContact(event, contact)}
+              className="inline-flex items-center rounded-full border border-gray-300 bg-white px-2.5 py-0.5 text-sm font-medium leading-5 text-gray-700 shadow-sm hover:bg-gray-50"
+            >
+              Edit
+            </button>
+            <button
               onClick={(event) => removeContact(event, contact._id)}
               className="inline-flex items-center rounded-full border border-gray-300 bg-white px-2.5 py-0.5 text-sm font-medium leading-5 text-gray-700 shadow-sm hover:bg-gray-50"
             >
               Remove
-            </a>
+            </button>
           </div>
         </div>
       </li>
@@ -65,9 +71,9 @@ export const ContactList = () => {
   });
 
   if (isLoading()) {
-    return <Loading />
+    return <Loading />;
   }
-  
+
   return (
     <div>
       {remove && <ErrorAlert message={remove} />}
