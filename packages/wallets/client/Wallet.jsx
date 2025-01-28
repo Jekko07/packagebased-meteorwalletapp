@@ -5,8 +5,7 @@ import { Modal } from "./Modal";
 import { SelectContact } from "./SelectContact";
 import { ContactsCollection } from "meteor/contacts/lib/collections/ContactsCollection";
 import { WalletsCollection } from "meteor/wallets/lib/collections/WalletsCollection";
-import { Loading } from "../../shared/client/components/Loading";
-
+import { Loading } from "meteor/shared/client/components/Loading";
 
 export const Wallet = () => {
   const isLoadingContacts = useSubscribe("contacts");
@@ -16,24 +15,25 @@ export const Wallet = () => {
     return ContactsCollection.find({}, { sort: { createdAt: -1 } });
   });
 
-  const [wallet] = useFind(() => WalletsCollection.find()); 
+  const [wallet] = useFind(() => WalletsCollection.find());
   const [open, setOpen] = React.useState(false);
   const [isTransferring, setIsTransferring] = React.useState(false);
   const [amount, setAmount] = React.useState(0);
   const [destinationWallet, setDestinationWallet] = React.useState({});
   const [errorMessage, setErrorMessage] = React.useState("");
 
-  
+  if (isLoadingContacts() || isLoadingWallets() || !wallet) {
+    return <Loading />;
+  }
 
   const addTransaction = () => {
-    console.log("New transaction", amount, destinationWallet);
     Meteor.call(
       "transactions.insert",
       {
         isTransferring,
         sourceWalletId: wallet._id,
         destinationWalletId: destinationWallet?.walletId || "",
-        amount
+        amount: Number(amount)
       },
       (errorResponse) => {
         if (errorResponse) {
@@ -47,10 +47,6 @@ export const Wallet = () => {
       }
     );
   };
-
-  if (isLoadingContacts()) {
-    return <Loading />;
-  }
 
   return (
     <>
@@ -132,7 +128,7 @@ export const Wallet = () => {
                 id="amount"
                 value={amount}
                 min={0}
-                onChange={(e) => setAmount(Number(e.target.value))}
+                onChange={(e) => setAmount(e.target.value)}
                 className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 placeholder="0.00"
               />

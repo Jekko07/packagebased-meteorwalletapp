@@ -14,5 +14,5 @@ Meteor.startup(() => {
       currency: "PHP",
       createdAt: new Date()
     });
-  }
+  } 
 });
