@@ -16,7 +16,8 @@
     "postcss": "^8.4.45",
     "postcss-load-config": "^3.1.4",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "simpl-schema": "^3.4.6"
   },
   "meteor": {
     "mainModule": {
