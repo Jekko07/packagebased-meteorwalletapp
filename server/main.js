@@ -7,6 +7,7 @@ import "meteor/contacts/server/ContactsMethods";
 import "meteor/contacts/server/ContactsPublications";
 import "meteor/transactions/server/TransactionsMethods";
 import "meteor/wallets/server/WalletsPublications";
+<<<<<<< HEAD
 import "meteor/infra/server/CustomError";
 
 Meteor.startup(() => {
@@ -15,5 +16,33 @@ Meteor.startup(() => {
       createdAt: new Date(),
       currency: "PHP"
     });
+=======
+import "meteor/infra/server/CustomError"
+
+const walletSchema = new SimpleSchema({
+  balance: {
+    type: Number,
+    min: 0,
+    defaultValue: 0
+  },
+  currency: {
+    type: String,
+    allowedValues: "PHP",
+    defaultValue: "PHP"
+  },
+  createdAt: {
+    type: Date
+  }
+});
+
+Meteor.startup(() => {
+  if (!WalletsCollection.find().count()) {
+    const walletData = {
+      createdAt: new Date()
+    };
+    const cleanWallet = walletSchema.clean(walletData);
+    walletSchema.validate(cleanWallet);
+    WalletsCollection.insert(cleanWallet);
+>>>>>>> 95e6e2e95b0b52215b90974c7cb8a20404e747bc
   }
 });
