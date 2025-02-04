@@ -37,6 +37,7 @@ export const Wallet = () => {
       },
       (errorResponse) => {
         if (errorResponse) {
+          console.log(errorResponse)
           setErrorMessage(errorResponse.error);
         } else {
           setOpen(false);
