@@ -37,12 +37,18 @@ export const Wallet = () => {
       },
       (errorResponse) => {
         if (errorResponse) {
-          errorResponse.details?.forEach((error) => {
-            setErrorMessage(error.message);
-          });
+          if (errorResponse.error) {
+            setErrorMessage(errorResponse.error);
+          } else {
+            // Properly handle and log each error message
+            const errorMessages =
+              errorResponse.details?.map((error) => error.message) || [];
+            setErrorMessage(errorMessages.join(". ")); // Combine messages into a single string
+          }
         } else {
+          // Resetting the modal and form state upon successful transaction
           setOpen(false);
-          setDestinationWallet({});
+          setDestinationContact({});
           setAmount(0);
           setErrorMessage("");
         }

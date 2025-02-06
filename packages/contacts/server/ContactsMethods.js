@@ -21,6 +21,28 @@ Meteor.methods({
       createdAt: new Date()
     });
   },
+
+  "contacts.update"({ contactId, name, email, imageUrl, walletId }) {
+    check(contactId, String);
+    check(name, String);
+    check(email, String);
+    check(imageUrl, String);
+    check(walletId, String);
+
+    return ContactsCollection.update(
+      { _id: contactId },
+      {
+        $set: {
+          name,
+          email,
+          imageUrl,
+          walletId,
+          updatedAt: new Date()
+        }
+      }
+    );
+  },
+
   "contacts.remove"({ contactId }) {
     check(contactId, String);
     return ContactsCollection.remove(contactId);
