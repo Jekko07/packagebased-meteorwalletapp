@@ -13,7 +13,8 @@ Package.onUse(function (api) {
     "mongo",
     "react-meteor-data",
     "shared",
-    "aldeed:collection2"
+    "aldeed:collection2",
+    "matb33:collection-hooks"
   ]);
   // api.mainModule('transactions.js');
 
