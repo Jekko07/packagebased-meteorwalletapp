@@ -22,11 +22,17 @@ export const Wallet = () => {
   const [destinationWallet, setDestinationWallet] = React.useState({});
   const [errorMessage, setErrorMessage] = React.useState("");
 
-  if (isLoadingContacts() || isLoadingWallets() || !wallet) {
-    return <Loading />;
-  }
-
   const addTransaction = () => {
+    if (!amount || amount < 1) {
+      setErrorMessage("Please enter a valid amount greater than 0.");
+      return;
+    }
+
+    if (isTransferring && !destinationWallet?.walletId) {
+      setErrorMessage("Please select a destination wallet.");
+      return;
+    }
+
     Meteor.call(
       "transactions.insert",
       {
@@ -37,18 +43,11 @@ export const Wallet = () => {
       },
       (errorResponse) => {
         if (errorResponse) {
-          if (errorResponse.error) {
-            setErrorMessage(errorResponse.error);
-          } else {
-            // Properly handle and log each error message
-            const errorMessages =
-              errorResponse.details?.map((error) => error.message) || [];
-            setErrorMessage(errorMessages.join(". ")); // Combine messages into a single string
-          }
+          setErrorMessage("Something went wrong. Please try again.");
         } else {
-          // Resetting the modal and form state upon successful transaction
+          // Reset form and close modal on success
           setOpen(false);
-          setDestinationContact({});
+          setDestinationWallet({});
           setAmount(0);
           setErrorMessage("");
         }
@@ -56,8 +55,12 @@ export const Wallet = () => {
     );
   };
 
+  if (isLoadingContacts() || isLoadingWallets() || !wallet) {
+    return <Loading />;
+  }
+
   return (
-    <>
+    <div>
       <div className="flex my-10 font-sans shadow-md">
         <form className="flex-auto p-6">
           <div className="flex flex-wrap">
@@ -154,6 +157,6 @@ export const Wallet = () => {
         }
         errorMessage={errorMessage}
       />
-    </>
+    </div>
   );
 };
