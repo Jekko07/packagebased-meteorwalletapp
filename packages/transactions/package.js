@@ -14,7 +14,8 @@ Package.onUse(function (api) {
     "react-meteor-data",
     "shared",
     "aldeed:collection2",
-    "matb33:collection-hooks"
+    "matb33:collection-hooks",
+    "wallets"
   ]);
   // api.mainModule('transactions.js');
 
