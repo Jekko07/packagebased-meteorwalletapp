@@ -1,9 +1,8 @@
 Package.describe({
   name: "transactions",
-  version: "0.0.2",
+  version: "0.0.3",
   // Brief, one-line summary of the package.
-  summary: "",
-  documentation: "README.md"
+  summary: "provides transaction related components",
 });
 
 Package.onUse(function (api) {
@@ -17,7 +16,6 @@ Package.onUse(function (api) {
     "matb33:collection-hooks",
     "wallets"
   ]);
-  // api.mainModule('transactions.js');
 
   api.addFiles(
     ["lib/collections/TransactionsCollections.js"],

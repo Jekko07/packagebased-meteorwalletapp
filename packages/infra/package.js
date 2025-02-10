@@ -1,7 +1,7 @@
 Package.describe({
   name: "infra",
-  version: "0.0.2",
-  summary: ""
+  version: "0.0.3",
+  summary: "provides infra related components"
 });
 
 Package.onUse(function (api) {

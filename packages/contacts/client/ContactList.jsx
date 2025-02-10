@@ -31,6 +31,7 @@ const ContactItem = memo(({ contact, onUpdate, onRemove }) => {
           </p>
         </div>
         <div>
+          {/* Edit and Remove buttons for each contact */}
           <button
             onClick={(event) => onUpdate(event, contact)}
             className="inline-flex items-center rounded-full border border-gray-300 bg-white px-2.5 py-0.5 text-sm font-medium leading-5 text-gray-700 shadow-sm hover:bg-gray-50"
